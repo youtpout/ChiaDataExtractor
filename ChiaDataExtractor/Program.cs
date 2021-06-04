@@ -33,69 +33,18 @@ namespace ChiaDataExtractor
 
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             Console.OutputEncoding = Encoding.GetEncoding(1252);
-            var folder = ConfigurationManager.AppSettings["folder"];
+
+            var service = new CliService();
 
 
+            string show = service.GetBlockChainInfo();
+            Console.WriteLine(show);
+            string farm = service.GetFarmingInfo();
+            Console.WriteLine(farm);
+            string wallet = service.GetWalletInfo();
+            Console.WriteLine(wallet);
 
-            GetChiaInfos(folder, "show -s");
-            GetChiaInfos(folder, "farm summary");
-            GetChiaInfos(folder, "wallet show");
             Console.ReadLine();
-        }
-
-        static byte[] ReadFully(Stream input)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                input.CopyTo(ms);
-                return ms.ToArray();
-            }
-        }
-
-        private async static void GetChiaInfos(string folder, string args)
-        {
-            try
-            {
-                var process = new Process();
-                process.StartInfo = new ProcessStartInfo
-                {
-                    FileName = Path.Combine(folder, "chia.exe"),
-                    Arguments = args,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    StandardOutputEncoding = Encoding.GetEncoding(1252),
-                    RedirectStandardError = true,
-                    StandardErrorEncoding = Encoding.GetEncoding(1252),
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    CreateNoWindow = true
-                };
-
-
-                process.Start();
-                var output = await process.StandardOutput.ReadToEndAsync();
-                Console.WriteLine(output);
-
-                output = await process.StandardError.ReadToEndAsync();
-                Console.WriteLine(output);
-
-
-                //byte[] result = ReadFully(process.StandardOutput.BaseStream);
-
-                //foreach (System.Text.EncodingInfo encodingInfo in System.Text.Encoding.GetEncodings())
-                //{
-                //    System.Text.Encoding encoding = encodingInfo.GetEncoding();
-                //    string decodedBytes = encoding.GetString(result);
-                //    System.Console.Out.WriteLine("Encoding: {0}, Decoded Bytes: {1}", encoding.EncodingName, decodedBytes);
-                //}
-
-
-
-                process.WaitForExit();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
         }
 
     }
