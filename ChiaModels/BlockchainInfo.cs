@@ -14,4 +14,5 @@ namespace ChiaModels
 
         public string Difficulty { get; set; }
     }
+
 }
