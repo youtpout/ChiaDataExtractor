@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ChiaConsoleApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ChiaController : ControllerBase
     {
         private readonly ILogger<ChiaController> _logger;
@@ -22,13 +22,13 @@ namespace ChiaConsoleApi.Controllers
             this.rpcService = rpcService;
         }
 
-        [HttpGet]
+        [HttpGet("GetFullNodeStatus")]
         public async Task<FullNodeStatus> GetFullNodeStatus()
         {
             return await rpcService.GetFullNodeStatus();
         }
 
-        [HttpGet("GetWallets")]
+        [HttpGet("GetWallet")]
         public async Task<WalletInfo> GetWallet()
         {
             return await rpcService.GetWallet();
