@@ -6,7 +6,12 @@ namespace ChiaService
 {
     public interface IRpcService
     {
-        Task<BlockchainInfo> GetBlockChainInfo();
+        Task<FullNodeStatus> GetFullNodeStatus();
+        Task<RootBlockRecord> GetBlockRecord(string hash);
+        Task<WalletInfo> GetWallet();
+
+        Task<string> GetUrl(string url);
+
         //Task<string> GetFarmingInfo();
         //Task<string> GetWalletInfo();
     }

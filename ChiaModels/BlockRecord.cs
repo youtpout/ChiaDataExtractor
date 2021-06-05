@@ -7,17 +7,8 @@ using System.Threading.Tasks;
 namespace ChiaModels
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
-    public class ChallengeVdfOutput
-    {
-        public string data { get; set; }
-    }
 
-    public class InfusedChallengeVdfOutput
-    {
-        public string data { get; set; }
-    }
-
-    public class Peak
+    public class BlockRecord
     {
         public string challenge_block_info_hash { get; set; }
         public ChallengeVdfOutput challenge_vdf_output { get; set; }
@@ -46,28 +37,9 @@ namespace ChiaModels
         public int weight { get; set; }
     }
 
-    public class Sync
+    public class RootBlockRecord
     {
-        public bool sync_mode { get; set; }
-        public int sync_progress_height { get; set; }
-        public int sync_tip_height { get; set; }
-        public bool synced { get; set; }
-    }
-
-    public class BlockchainState
-    {
-        public int difficulty { get; set; }
-        public bool genesis_challenge_initialized { get; set; }
-        public int mempool_size { get; set; }
-        public Peak peak { get; set; }
-        public decimal space { get; set; }
-        public int sub_slot_iters { get; set; }
-        public Sync sync { get; set; }
-    }
-
-    public class RootBlockchainState
-    {
-        public BlockchainState blockchain_state { get; set; }
+        public BlockRecord block_record { get; set; }
         public bool success { get; set; }
     }
 
