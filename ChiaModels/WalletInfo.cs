@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace ChiaModels
 {
-    public class WalletInfo
+    public partial class WalletInfo
     {
         public int Height { get; set; }
         public bool Synced { get; set; }
+        public bool Syncing { get; set; }
         public int Fingerprint { get; set; }
         public decimal TotalBalance { get; set; }
         public decimal PendingBalance { get; set; }

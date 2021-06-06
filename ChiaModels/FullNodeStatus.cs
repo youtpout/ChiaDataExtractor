@@ -2,13 +2,16 @@
 
 namespace ChiaModels
 {
-    public class FullNodeStatus
+    public partial class FullNodeStatus
     {
-        public string Status { get; set; }
+        public bool Syncing { get; set; }
+        public int SyncProgressHeight { get; set; }
+        public int SyncTipHeight { get; set; }
+        public bool Synced { get; set; }
         public string NetworkName { get; set; }
-        public string PeakTime { get; set; }
+        public long PeakTime { get; set; }
         public string VDF { get; set; }
-        public string EstimatedNetworkSpace { get; set; }
+        public decimal EstimatedNetworkSpace { get; set; }
         public string ConnectionStatus { get; set; }
         public int PeakHeight { get; set; }
         public int Difficulty { get; set; }

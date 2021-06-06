@@ -19,6 +19,10 @@ namespace ChiaService
             this.configuration = configuration;
         }
 
+        /// <summary>
+        /// Get Pfx certificate from certificate file crt and key in chia user folder
+        /// </summary>
+        /// <returns></returns>
         public async Task<X509Certificate2> GetCertificate()
         {
             var cacheEntry = cache.GetOrCreate(certificateKey, async entry =>

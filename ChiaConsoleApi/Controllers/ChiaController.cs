@@ -14,30 +14,56 @@ namespace ChiaConsoleApi.Controllers
     public class ChiaController : ControllerBase
     {
         private readonly ILogger<ChiaController> _logger;
+        private readonly IChiaInfoService infoService;
         private readonly IRpcService rpcService;
 
-        public ChiaController(ILogger<ChiaController> logger, IRpcService rpcService)
+        public ChiaController(ILogger<ChiaController> logger, IChiaInfoService infoService, IRpcService rpcService)
         {
             _logger = logger;
+            this.infoService = infoService;
             this.rpcService = rpcService;
         }
 
         [HttpGet("GetFullNodeStatus")]
         public async Task<FullNodeStatus> GetFullNodeStatus()
         {
-            return await rpcService.GetFullNodeStatus();
+            try
+            {
+                return await infoService.GetFullNodeStatus();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
 
         [HttpGet("GetWallet")]
         public async Task<WalletInfo> GetWallet()
         {
-            return await rpcService.GetWallet();
+            try
+            {
+                return await infoService.GetWallet();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
 
         [HttpGet("url")]
         public async Task<string> GetUrl(string url)
         {
-            return await rpcService.GetUrl(url);
+            try
+            {
+                return await rpcService.GetUrl(url);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
         }
     }
 }

@@ -6,13 +6,15 @@ namespace ChiaService
 {
     public interface IRpcService
     {
-        Task<FullNodeStatus> GetFullNodeStatus();
+        Task<RootBlockchainState> GetBlockchainState();
         Task<RootBlockRecord> GetBlockRecord(string hash);
-        Task<WalletInfo> GetWallet();
+        Task<RootWalletList> GetWallets();
+        Task<RootFingerprint> GetFingerprint();
+        Task<RootWalletSync> GetWalletSyncStatus();
+        Task<RootWalletHeight> GetWalletHeighInfo();
+        Task<RootNetworkInfo> GetNetworkInfo();
+        Task<RootWalletBalance> GetWalletBalance(WalletBalanceParam parameters);
 
         Task<string> GetUrl(string url);
-
-        //Task<string> GetFarmingInfo();
-        //Task<string> GetWalletInfo();
     }
 }

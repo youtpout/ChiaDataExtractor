@@ -29,6 +29,7 @@ namespace ChiaConsoleApi
             services.AddMemoryCache();
             services.AddSingleton<IRpcService, RpcService>();
             services.AddSingleton<ICacheService, CacheService>();
+            services.AddSingleton<IChiaInfoService, ChiaInfoService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
