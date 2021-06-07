@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ChiaService
 {
-    public interface IChiaInfoService
+    public interface IWalletService
     {
-        Task<FullNodeStatus> GetFullNodeStatus();
         Task<WalletInfo> GetWallet();
     }
 }

@@ -10,4 +10,9 @@ namespace ChiaModels
     {
         public string header_hash { get; set; }
     }
+
+    public class BlockHeightParam
+    {
+        public long height { get; set; }
+    }
 }

@@ -12,7 +12,7 @@ namespace ChiaModels
     {
         public string challenge_block_info_hash { get; set; }
         public ChallengeVdfOutput challenge_vdf_output { get; set; }
-        public int deficit { get; set; }
+        public long deficit { get; set; }
         public string farmer_puzzle_hash { get; set; }
         public object fees { get; set; }
         public object finished_challenge_slot_hashes { get; set; }
@@ -25,16 +25,25 @@ namespace ChiaModels
         public string pool_puzzle_hash { get; set; }
         public string prev_hash { get; set; }
         public object prev_transaction_block_hash { get; set; }
-        public int prev_transaction_block_height { get; set; }
-        public int required_iters { get; set; }
+        public long prev_transaction_block_height { get; set; }
+        public long required_iters { get; set; }
         public object reward_claims_incorporated { get; set; }
         public string reward_infusion_new_challenge { get; set; }
-        public int signage_point_index { get; set; }
+        public long signage_point_index { get; set; }
         public object sub_epoch_summary_included { get; set; }
-        public int sub_slot_iters { get; set; }
+        public long sub_slot_iters { get; set; }
         public long? timestamp { get; set; }
         public long total_iters { get; set; }
-        public int weight { get; set; }
+        public long weight { get; set; }
+
+        public bool is_transaction_block
+        {
+            get
+            {
+                return this.timestamp != null;
+            }
+        }
+
     }
 
     public class RootBlockRecord

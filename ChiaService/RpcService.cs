@@ -16,14 +16,14 @@ namespace ChiaService
     public class RpcService : IRpcService
     {
         private readonly ICacheService cacheService;
-        private readonly ILogger<ChiaInfoService> _logger;
+        private readonly ILogger<FullNodeService> _logger;
 
         string urlFullNode;
         string urlFarmer;
         string urlHarvester;
         string urlWallet;
         // string urlDaemon;
-        public RpcService(ICacheService cacheService, IConfiguration config, ILogger<ChiaInfoService> logger)
+        public RpcService(ICacheService cacheService, IConfiguration config, ILogger<FullNodeService> logger)
         {
             _logger = logger;
             this.cacheService = cacheService;
@@ -112,6 +112,28 @@ namespace ChiaService
         public async Task<RootWalletBalance> GetWalletBalance(WalletBalanceParam parameters)
         {
             return await Get<RootWalletBalance, WalletBalanceParam>($"{urlWallet}get_wallet_balance ", parameters);
+        }
+
+        public async Task<RootConnection> GetFarmerConnection()
+        {
+            return await Get<RootConnection>($"{urlFarmer}get_connections");
+        }
+
+        public async Task<RootPlot> GetPlots()
+        {
+            return await Get<RootPlot>($"{urlHarvester}get_plots");
+        }
+
+        public async Task<FarmedAmount> GetFarmedAmount()
+        {
+            return await Get<FarmedAmount>($"{urlWallet}get_farmed_amount");
+        }
+
+        public async Task<RootBlockRecord> GetBlockRecordByHeight(long height)
+        {
+            var param = new BlockHeightParam { height = height };
+            var result = await Get<RootBlockRecord, BlockHeightParam>($"{urlFullNode}get_block_record_by_height", param);
+            return result;
         }
     }
 }

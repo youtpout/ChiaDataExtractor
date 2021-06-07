@@ -14,13 +14,17 @@ namespace ChiaConsoleApi.Controllers
     public class ChiaController : ControllerBase
     {
         private readonly ILogger<ChiaController> _logger;
-        private readonly IChiaInfoService infoService;
+        private readonly IFullNodeService fullNodeService;
+        private readonly IFarmerService farmerService;
+        private readonly IWalletService walletService;
         private readonly IRpcService rpcService;
 
-        public ChiaController(ILogger<ChiaController> logger, IChiaInfoService infoService, IRpcService rpcService)
+        public ChiaController(ILogger<ChiaController> logger, IFullNodeService fullNodeService, IFarmerService farmerService, IWalletService walletService, IRpcService rpcService)
         {
             _logger = logger;
-            this.infoService = infoService;
+            this.fullNodeService = fullNodeService;
+            this.farmerService = farmerService;
+            this.walletService = walletService;
             this.rpcService = rpcService;
         }
 
@@ -29,7 +33,7 @@ namespace ChiaConsoleApi.Controllers
         {
             try
             {
-                return await infoService.GetFullNodeStatus();
+                return await fullNodeService.GetFullNodeStatus();
             }
             catch (Exception ex)
             {
@@ -43,7 +47,21 @@ namespace ChiaConsoleApi.Controllers
         {
             try
             {
-                return await infoService.GetWallet();
+                return await walletService.GetWallet();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw;
+            }
+        }
+
+        [HttpGet("GetFarmingInfo")]
+        public async Task<FarmingInfo> GetFarmingInfo()
+        {
+            try
+            {
+                return await farmerService.GetFarmingInfo();
             }
             catch (Exception ex)
             {
